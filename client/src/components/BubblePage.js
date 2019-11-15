@@ -5,14 +5,14 @@ import { getColors } from '../actions'
 import Bubbles from "./Bubbles";
 import ColorList from "./ColorList";
 
-const BubblePage = () => {
+const BubblePage = ({colors, getColors}) => {
   const [colorList, setColorList] = useState([]);
   // fetch your colors data from the server when the component mounts
   // set that data to the colorList state property
   useEffect(()=>{
-    props.getColors()
-    
-  },[])
+    getColors()
+    setColorList(colors)
+  },[getColors])
 
   return (
     <>
@@ -22,4 +22,8 @@ const BubblePage = () => {
   );
 };
 
-export default connect(state=>state, {getColors})(BubblePage);
+const mapStateToProps = (state) => {
+  return { colors: state.colorReducer.colorData }
+}
+
+export default connect(mapStateToProps, {getColors})(BubblePage);

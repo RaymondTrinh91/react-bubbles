@@ -2,9 +2,9 @@ import {
     GET_COLOR_START,
     GET_COLOR_SUCCESS,
     GET_COLOR_FAILURE,
-    POST_COLOR_START,
-    POST_COLOR_SUCCESS,
-    POST_COLOR_FAILURE,
+    // POST_COLOR_START,
+    // POST_COLOR_SUCCESS,
+    // POST_COLOR_FAILURE,
     PUT_COLOR_START,
     PUT_COLOR_SUCCESS,
     PUT_COLOR_FAILURE,
@@ -19,7 +19,7 @@ const initialColorState = {
     errors: null
 }
 
-export const friendReducer = (state = initialColorState, { type, payload }) => {
+export const colorReducer = (state = initialColorState, { type, payload }) => {
     switch (type) {
         case GET_COLOR_START:
             return {
@@ -42,21 +42,42 @@ export const friendReducer = (state = initialColorState, { type, payload }) => {
                 colorData: [],
                 errors: payload
             }
-        case POST_COLOR_START:
+        case PUT_COLOR_START:
             return {
                 ...state,
                 isLoading: true,
                 colorData: [],
                 errors: null
             }
-        case POST_COLOR_SUCCESS:
+        case PUT_COLOR_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
                 colorData: payload,
                 errors: null
             }
-        case POST_COLOR_FAILURE:
+        case PUT_COLOR_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                colorData: [],
+                errors: payload
+            }
+        case DELETE_COLOR_START:
+            return {
+                ...state,
+                isLoading: true,
+                colorData: [],
+                errors: null
+            }
+        case DELETE_COLOR_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                colorData: payload,
+                errors: null
+            }
+        case DELETE_COLOR_FAILURE:
             return {
                 ...state,
                 isLoading: false,

@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { connect } from 'react-redux'
+
+import { updateColor, deleteColorCall } from '../actions'
 
 const initialColor = {
   color: "",
-  code: { hex: "" }
+  code: { hex: "" },
+  id: 0
 };
 
-const ColorList = ({ colors, updateColors }) => {
-  console.log(colors);
+const ColorList = ({ colors, updateColors, newColors, updateColor, deleteColorCall }) => {
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
 
@@ -18,12 +20,15 @@ const ColorList = ({ colors, updateColors }) => {
 
   const saveEdit = e => {
     e.preventDefault();
+    updateColor(colorToEdit.id, colorToEdit)
+    updateColors(newColors)
     // Make a put request to save your updated color
     // think about where will you get the id from...
     // where is is saved right now?
   };
 
   const deleteColor = color => {
+    deleteColorCall(color)
     // make a delete request to delete this color
   };
 
@@ -35,11 +40,11 @@ const ColorList = ({ colors, updateColors }) => {
           <li key={color.color} onClick={() => editColor(color)}>
             <span>
               <span className="delete" onClick={e => {
-                    e.stopPropagation();
-                    deleteColor(color)
-                  }
-                }>
-                  x
+                e.stopPropagation();
+                deleteColor(color)
+              }
+              }>
+                x
               </span>{" "}
               {color.color}
             </span>
@@ -86,4 +91,8 @@ const ColorList = ({ colors, updateColors }) => {
   );
 };
 
-export default ColorList;
+const mapStateToProps = (state) => {
+  return { newColors: state.colorReducer.colorData }
+}
+
+export default connect(mapStateToProps, { updateColor, deleteColorCall })(ColorList);

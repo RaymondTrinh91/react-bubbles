@@ -24,6 +24,36 @@ export const getColors = () => dispatch => {
     dispatch({ type: GET_COLOR_START })
     axiosWithAuth()
         .get('http://localhost:5000/api/colors')
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
-} 
+        .then(res => dispatch({ type: GET_COLOR_SUCCESS, payload: res.data }))
+        .catch(err => dispatch({ type: GET_COLOR_FAILURE, payload: err.response.data.error }))
+}
+
+export const PUT_COLOR_START = "PUT_COLOR_START"
+export const PUT_COLOR_SUCCESS = "PUT_COLOR_SUCCESS"
+export const PUT_COLOR_FAILURE = "PUT_COLOR_FAILURE"
+
+export const updateColor = (id, newColor) => dispatch => {
+    dispatch({ type: PUT_COLOR_START })
+    axiosWithAuth()
+        .put(`http://localhost:5000/api/colors/${id}`, newColor)
+        .then(res => {
+            console.log('put req', res)
+            dispatch({ type: PUT_COLOR_SUCCESS, payload: res.data })
+        })
+        .catch(err => dispatch({ type: PUT_COLOR_FAILURE, payload: err.response.data.error }))
+}
+
+export const DELETE_COLOR_START = "DELETE_COLOR_START"
+export const DELETE_COLOR_SUCCESS = "DELETE_COLOR_SUCCESS"
+export const DELETE_COLOR_FAILURE = "DELETE_COLOR_FAILURE"
+
+export const deleteColorCall = (color) => dispatch => {
+    dispatch({ type: DELETE_COLOR_START })
+    axiosWithAuth()
+        .delete(`http://localhost:5000/api/colors/${color.id}`)
+        .then(res => {
+            console.log('put req', res)
+            dispatch({ type: DELETE_COLOR_SUCCESS, payload: res.data })
+        })
+        .catch(err => dispatch({ type: DELETE_COLOR_FAILURE, payload: err.response }))
+}
