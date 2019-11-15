@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux'
 
-import { updateColor, deleteColorCall } from '../actions'
+import { updateColorCall, deleteColorCall, postNewColor } from '../actions'
 
 const initialColor = {
   color: "",
@@ -9,9 +9,12 @@ const initialColor = {
   id: 0
 };
 
-const ColorList = ({ colors, updateColors, newColors, updateColor, deleteColorCall }) => {
+const ColorList = ({ colors, updateColors, newColors, updateColorCall, deleteColorCall, postNewColor }) => {
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
+  const [addColor, setAddColor] = useState({color: '', code: {hex: ''}})
+
+  console.log(newColors)
 
   const editColor = color => {
     setEditing(true);
@@ -20,8 +23,7 @@ const ColorList = ({ colors, updateColors, newColors, updateColor, deleteColorCa
 
   const saveEdit = e => {
     e.preventDefault();
-    updateColor(colorToEdit.id, colorToEdit)
-    updateColors(newColors)
+    updateColorCall(colorToEdit.id, colorToEdit)
     // Make a put request to save your updated color
     // think about where will you get the id from...
     // where is is saved right now?
@@ -31,6 +33,18 @@ const ColorList = ({ colors, updateColors, newColors, updateColor, deleteColorCa
     deleteColorCall(color)
     // make a delete request to delete this color
   };
+
+  const addAColor = e => {
+    e.preventDefault()
+    postNewColor(addColor)
+  }
+  if(!colors) {
+    return (
+      <div>
+        Loading Data
+      </div>
+    )
+  }
 
   return (
     <div className="colors-wrap">
@@ -86,6 +100,23 @@ const ColorList = ({ colors, updateColors, newColors, updateColor, deleteColorCa
         </form>
       )}
       <div className="spacer" />
+      <form onSubmit={addAColor}>
+        <label>Color Name</label>
+        <input
+          type='text'
+          name='color'
+          onChange={e=> setAddColor({...addColor, color: e.target.value})}
+          value={addColor.name}
+        />
+        <label>Color Hex Code</label>
+        <input
+          type='text'
+          name='hex'
+          onChange={e=> setAddColor({ ...addColor, code: {hex:e.target.value}})}
+          value={addColor.code.hex}
+        />
+        <button type='submit'>Add A Color</button>
+      </form>
       {/* stretch - build another form here to add a color */}
     </div>
   );
@@ -95,4 +126,4 @@ const mapStateToProps = (state) => {
   return { newColors: state.colorReducer.colorData }
 }
 
-export default connect(mapStateToProps, { updateColor, deleteColorCall })(ColorList);
+export default connect(mapStateToProps, { updateColorCall, deleteColorCall, postNewColor })(ColorList);
