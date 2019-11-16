@@ -24,6 +24,7 @@ const ColorList = ({ colors, toggleUpdate, newColors, updateColorCall, deleteCol
   const saveEdit = e => {
     e.preventDefault();
     updateColorCall(colorToEdit.id, colorToEdit)
+    toggleUpdate()
     // Make a put request to save your updated color
     // think about where will you get the id from...
     // where is is saved right now?
