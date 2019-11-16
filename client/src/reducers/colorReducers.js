@@ -46,14 +46,12 @@ export const colorReducer = (state = initialColorState, { type, payload }) => {
             return {
                 ...state,
                 isLoading: true,
-                colorData: [],
                 errors: null
             }
         case PUT_COLOR_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
-                colorData: payload,
                 errors: null
             }
         case PUT_COLOR_FAILURE:
@@ -81,7 +79,6 @@ export const colorReducer = (state = initialColorState, { type, payload }) => {
             return {
                 ...state,
                 isLoading: false,
-                colorData: [],
                 errors: payload
             }
         case POST_COLOR_START:
