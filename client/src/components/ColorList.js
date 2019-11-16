@@ -9,7 +9,7 @@ const initialColor = {
   id: 0
 };
 
-const ColorList = ({ colors, updateColors, newColors, updateColorCall, deleteColorCall, postNewColor }) => {
+const ColorList = ({ colors, toggleUpdate, newColors, updateColorCall, deleteColorCall, postNewColor }) => {
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
   const [addColor, setAddColor] = useState({color: '', code: {hex: ''}})
