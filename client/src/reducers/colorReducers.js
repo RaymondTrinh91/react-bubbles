@@ -46,14 +46,12 @@ export const colorReducer = (state = initialColorState, { type, payload }) => {
             return {
                 ...state,
                 isLoading: true,
-                colorData: [],
                 errors: null
             }
         case PUT_COLOR_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
-                colorData: payload,
                 errors: null
             }
         case PUT_COLOR_FAILURE:
@@ -66,22 +64,21 @@ export const colorReducer = (state = initialColorState, { type, payload }) => {
         case DELETE_COLOR_START:
             return {
                 ...state,
-                isLoading: true,
-                colorData: [],
                 errors: null
             }
         case DELETE_COLOR_SUCCESS:
+            const { colorData } = state;
+            const newColorData = colorData.filter(color => {
+                return color.id !== payload });
             return {
                 ...state,
-                isLoading: false,
-                colorData: payload,
+                colorData: [...newColorData],
                 errors: null
             }
         case DELETE_COLOR_FAILURE:
             return {
                 ...state,
                 isLoading: false,
-                colorData: [],
                 errors: payload
             }
         case POST_COLOR_START:

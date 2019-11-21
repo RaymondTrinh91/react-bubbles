@@ -31,7 +31,7 @@ const Login = (props) => {
         <label>Password</label>
         <input
           name='password'
-          type='text'
+          type='password'
           onChange={handleChanges}
           value={loginValues.password}
         />

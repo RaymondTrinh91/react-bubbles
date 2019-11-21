@@ -9,7 +9,7 @@ const initialColor = {
   id: 0
 };
 
-const ColorList = ({ colors, updateColors, newColors, updateColorCall, deleteColorCall, postNewColor }) => {
+const ColorList = ({ colors, toggleUpdate, newColors, updateColorCall, deleteColorCall, postNewColor }) => {
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
   const [addColor, setAddColor] = useState({color: '', code: {hex: ''}})
@@ -24,6 +24,7 @@ const ColorList = ({ colors, updateColors, newColors, updateColorCall, deleteCol
   const saveEdit = e => {
     e.preventDefault();
     updateColorCall(colorToEdit.id, colorToEdit)
+    toggleUpdate()
     // Make a put request to save your updated color
     // think about where will you get the id from...
     // where is is saved right now?
