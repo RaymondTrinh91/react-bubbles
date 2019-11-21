@@ -13,6 +13,7 @@ import {
     DELETE_COLOR_FAILURE
 } from '../actions'
 
+
 const initialColorState = {
     isLoading: false,
     colorData: [],
@@ -39,7 +40,6 @@ export const colorReducer = (state = initialColorState, { type, payload }) => {
             return {
                 ...state,
                 isLoading: false,
-                colorData: [],
                 errors: payload
             }
         case PUT_COLOR_START:

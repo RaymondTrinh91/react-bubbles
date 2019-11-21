@@ -29,10 +29,10 @@ const ColorList = ({ colors, updateColors, newColors, updateColorCall, deleteCol
     // where is is saved right now?
   };
 
-  const deleteColor = color => {
-    deleteColorCall(color)
-    // make a delete request to delete this color
-  };
+  // const deleteColor = color => {
+  //   deleteColorCall(color)
+  //   // make a delete request to delete this color
+  // };
 
   const addAColor = e => {
     e.preventDefault()
@@ -55,7 +55,7 @@ const ColorList = ({ colors, updateColors, newColors, updateColorCall, deleteCol
             <span>
               <span className="delete" onClick={e => {
                 e.stopPropagation();
-                deleteColor(color)
+                // deleteColor(color)
               }
               }>
                 x

@@ -9,7 +9,8 @@ export const postLogin = (user) => dispatch => {
     axiosWithAuth()
         .post('http://localhost:5000/api/login', user)
         .then(res => {
-            localStorage.setItem('token', res.data.payload);
+            console.log(res)
+            localStorage.setItem('token', res);
             dispatch({ type: LOGIN_SUCCESS, payload: res.data.payload })
         })
         .catch(err => dispatch({ type: LOGIN_FAILURE, payload: err.response.data.error }))
